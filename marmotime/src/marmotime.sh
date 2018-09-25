@@ -25,22 +25,7 @@ fi
 #==============================================================================
 # > ENVIRONMENT VARIABLES
 #==============================================================================
-DEBUG=0 #set to 1 to see the result visually (0 - GOOD, 1 - BAD), 2 to see all the error messages
-LENIENCY=$5 #allows the student_solution to be $LENIENCY times slower than the optimal_solution, 
-	    #do not set to anything lower than 10
-if [ $LENIENCY -lt 10 ]; then
-  LENIENCY=10
-fi
-CODE=0 #the all-important return code, assumed innocent until proven guilty
-       #also protective feature, if this code errors out, the student will get some "free" marks
-NO_MAIN=0
-ERR_ADDR="/dev/null"
-SOLUTION=$3.c
-
-FIRST_WRAP=$1
-SECOND_WRAP=$1
-FIRST_MOVE=$2
-SECOND_MOVE=$3.c
+#REDACTED
 #==============================================================================
 # > HELPER FUNCTIONS
 #==============================================================================
@@ -74,19 +59,14 @@ cleanup(){
 #==============================================================================
 # > MAIN LOGIC
 #==============================================================================
-mv $3 $3.c
 
-if [ $DEBUG -eq 2 ]; then
-  ERR_ADDR=$$.log
-fi
-if [ "$1" = "-e" ]; then
-  NO_MAIN=1
-fi
-
-if [ $NO_MAIN -eq 1 ]; then
-  FIRST_WRAP=$3.c
-  SECOND_WRAP=$2
-fi
+#<REDACTED>
+#
+#
+#
+#
+#
+#<REDACTED>
 
 ./xchrono $FIRST_WRAP $$.c 1>&2 2>${ERR_ADDR}
 mv $FIRST_WRAP $$x1 1>&2 2>${ERR_ADDR}
@@ -115,17 +95,12 @@ mv $$x3 $SECOND_WRAP 1>&2 2>${ERR_ADDR}
 mv $$x4 $SECOND_MOVE 1>&2 2>${ERR_ADDR}
 cleanup $$ $ERR_ADDR
 
-if [ $CODE -eq 0 ] && [ $DEBUG -eq 1 ]; then
-  echoerr "GOOD"
-elif [ $DEBUG -eq 1 ]; then
-  echoerr "BAD" 
-fi
-
-if [ $DEBUG -eq 2 ] && [ -s $$.errx ]; then
-  echoerr "ERROR LOG: "
-  echoerr ""
-  cat ${ERR_ADDR} 1>&2
-  rm ${ERR_ADDR}
-fi
+#<REDACTED>
+#
+#
+#
+#
+#
+#<REDACTED>
 
 exit $CODE

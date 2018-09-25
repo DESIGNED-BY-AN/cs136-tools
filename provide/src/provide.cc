@@ -10,74 +10,9 @@
 
 using namespace std;
 
-static bool is_whitespace(char c){
-  return (c <= 32) && (c != 0) && (c != 10);
-}
+/*helper functions*/
 
-//wow, cs136 assignment question much shock
-static string remove_extra_ws(string line){
-  string retval = "";
-  
-  bool on_space = false;
-  bool empty = true;
-
-  for (char c : line){
-    if (!is_whitespace(c)){
-      empty = false;
-      retval += c;
-      on_space = false;
-    }
-    else{
-      if (empty || !on_space) retval += ' ';
-      on_space = true;
-    }
-  }
-  return retval;
-}
-
-static void compute_lsp_table(string pattern, int *lsp){
-  lsp[0] = 0;
-  for (int i = 1; i < pattern.length(); ++i){
-    int j = lsp[i - 1];
-    while (j > 0 && pattern[i] != pattern[j]){
-      j = lsp[j - 1];
-    }
-    if (pattern[i] == pattern[j]){
-      ++j;
-    }
-    lsp[i] = j;
-  }
-}
-
-static int find_substr(string text, string pattern){
-  int *lsp = new int[pattern.length()];
-  compute_lsp_table(pattern, lsp);
-  
-  int j = 0;
-  for (int i = 0; i < text.length(); ++i){
-    while (j > 0 && text[i] != pattern[j]){
-      j = lsp[j - 1];
-    }
-    if (text[i] == pattern[j]){
-      ++j;
-      if (j == pattern.length()){
-	delete[] lsp;
-	return i - (j - 1);
-      }
-    }
-  }
-  delete[] lsp;
-  return -1;
-}
-
-static string ignore_comment(string line){
-  int k = find_substr(line,"//");
-  if (k < 0) return line;
-  return line.substr(0,k);
-}
-
-int main(int argc, char *argv[]){
-  
+int main(int argc, char *argv[]){ 
   if (argc != 4){
     cerr << "" << endl;
     cerr << "+-------------------------------------------------------------------------------------------------------------------+" << endl;
@@ -94,6 +29,7 @@ int main(int argc, char *argv[]){
     cerr << "" << endl;
     exit(1);
   }
+
   ifstream f_i;
   ofstream f_o;
   ifstream f_s;
